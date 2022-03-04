@@ -12,3 +12,11 @@ class MyView(View):
     def index(self,request):
         return render(request,'index.html');
 
+    @request_mapping("/a", method="get")
+    def all(self, request):
+
+        context = {
+            'center': 'view_option.html',
+        };
+        return render(request, 'view_option.html', context);
+
