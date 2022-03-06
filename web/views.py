@@ -18,5 +18,20 @@ class MyView(View):
         context = {
             'center': 'view_option.html',
         };
-        return render(request, 'view_option.html', context);
+        return render(request, 'home.html', context);
 
+    @request_mapping("/top", method="get")
+    def top(self, request):
+
+        context = {
+            'center': 'top.html',
+        };
+        return render(request, 'home.html', context);
+
+    @request_mapping("/bottom", method="get")
+    def bottom(self, request):
+
+        context = {
+            'center': 'bottom.html',
+        };
+        return render(request, 'home.html', context);
