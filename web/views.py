@@ -35,5 +35,3 @@ class MyView(View):
             'center': 'bottom.html',
         };
         return render(request, 'home.html', context);
-
-
