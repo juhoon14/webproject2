@@ -18,5 +18,5 @@ class MyView(View):
         context = {
             'center': 'view_option.html',
         };
-        return render(request, 'view_option.html', context);
+        return render(request, 'index.html', context);
 
