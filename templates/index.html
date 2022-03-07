@@ -66,6 +66,14 @@
                         </button>
                     </form>
                     {% endif %}
+                    {% if request.session.sessionid == "admin" %}
+                    <form class="itemadd">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            <a href="/item/i">상품등록</a>
+                        </button>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </nav>
