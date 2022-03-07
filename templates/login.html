@@ -1,5 +1,11 @@
 <section>
     <h1>login</h1>
-
+    <form action="loginimpl" method="post">
+        {% csrf_token %}
+        <p>아이디</p><input type="text" name="id"><br>
+        <p>비밀번호</p><input type="password" name="pwd"><br>
+        <input type="submit" value="로그인">
+    </form>
+    <p>{{print}}</p>
 
 </section>

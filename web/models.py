@@ -1,9 +1,9 @@
 from django.db import models
 
 class Cart(models.Model):
-    cart_number = models.IntegerField(primary_key=True)
-    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
-    product_number = models.ForeignKey('Item', models.DO_NOTHING, db_column='product_number', blank=True, null=True)
+    cart_number = models.AutoField(primary_key=True)
+    u = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
+    p_number = models.ForeignKey('Item', models.DO_NOTHING, db_column='p_number', blank=True, null=True)
     product_count = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -22,7 +22,7 @@ class Category(models.Model):
 
 class Item(models.Model):
     product_number = models.AutoField(primary_key=True)
-    category_code = models.ForeignKey(Category, models.DO_NOTHING, db_column='category_code', blank=True, null=True)
+    c_code = models.ForeignKey(Category, models.DO_NOTHING, db_column='c_code', blank=True, null=True)
     product_img = models.TextField(blank=True, null=True)
     product_name = models.CharField(max_length=50, blank=True, null=True)
     product_price = models.IntegerField(blank=True, null=True)
@@ -36,10 +36,10 @@ class Item(models.Model):
         db_table = 'item'
 
 class OrderDetail(models.Model):
-    order_detail_number = models.IntegerField(primary_key=True)
-    product_number = models.ForeignKey(Item, models.DO_NOTHING, db_column='product_number', blank=True, null=True)
-    order_number = models.ForeignKey('Orderr', models.DO_NOTHING, db_column='order_number', blank=True, null=True)
-    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
+    order_detail_number = models.AutoField(primary_key=True)
+    p_number = models.ForeignKey(Item, models.DO_NOTHING, db_column='p_number', blank=True, null=True)
+    o_number = models.ForeignKey('Orderr', models.DO_NOTHING, db_column='o_number', blank=True, null=True)
+    u = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
     order_detail_name = models.CharField(max_length=20, blank=True, null=True)
     order_detail_address = models.CharField(max_length=100, blank=True, null=True)
     order_detail_phone = models.CharField(max_length=20, blank=True, null=True)
@@ -50,8 +50,8 @@ class OrderDetail(models.Model):
 
 
 class Orderr(models.Model):
-    order_number = models.IntegerField(primary_key=True)
-    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
+    order_number = models.AutoField(primary_key=True)
+    u = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
     order_date = models.DateField(blank=True, null=True)
     order_status = models.CharField(max_length=10, blank=True, null=True)
 
@@ -60,14 +60,14 @@ class Orderr(models.Model):
         db_table = 'orderr'
 
 
-class User(models.Model):
+class Users(models.Model):
     user_id = models.CharField(primary_key=True, max_length=30)
-    user_pwd = models.CharField(max_length=50)
-    user_name = models.CharField(max_length=20)
-    user_phone = models.CharField(max_length=20)
+    user_pwd = models.CharField(max_length=50, blank=True, null=True)
+    user_name = models.CharField(max_length=20, blank=True, null=True)
+    user_phone = models.CharField(max_length=20, blank=True, null=True)
     user_email = models.CharField(max_length=50, blank=True, null=True)
-    user_address = models.CharField(max_length=100)
+    user_address = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'user'
+        db_table = 'users'
