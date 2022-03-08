@@ -12,11 +12,11 @@ class MyView(View):
     def index(self,request):
         return render(request,'index.html');
 
-    @request_mapping("/a", method="get")
-    def all(self, request):
+    @request_mapping("/cart", method="get")
+    def cart(self, request):
 
         context = {
-            'center': 'view_option.html',
+            'center': 'cart.html',
         };
         return render(request, 'home.html', context);
 
@@ -24,7 +24,7 @@ class MyView(View):
     def top(self, request):
 
         context = {
-            'center': 'top.html',
+            'center': 'top/top.html',
         };
         return render(request, 'home.html', context);
 
@@ -32,6 +32,22 @@ class MyView(View):
     def bottom(self, request):
 
         context = {
-            'center': 'bottom.html',
+            'center': 'bottom/bottom.html',
+        };
+        return render(request, 'home.html', context);
+
+    @request_mapping("/popular", method="get")
+    def popular(self, request):
+
+        context = {
+            'center': 'popular.html',
+        };
+        return render(request, 'home.html', context);
+
+    @request_mapping("/new", method="get")
+    def new(self, request):
+
+        context = {
+            'center': 'new.html',
         };
         return render(request, 'home.html', context);
