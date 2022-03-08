@@ -10,7 +10,7 @@ class MyView(View):
 
     @request_mapping("/", method="get")
     def index(self,request):
-        return render(request,'index.html');
+        return render(request,'index.html')
 
     @request_mapping("/cart", method="get")
     def cart(self, request):
@@ -18,6 +18,7 @@ class MyView(View):
         context = {
             'center': 'cart.html',
         };
+
         return render(request, 'home.html', context);
 
     @request_mapping("/top", method="get")
@@ -26,6 +27,7 @@ class MyView(View):
         context = {
             'center': 'top/top.html',
         };
+
         return render(request, 'home.html', context);
 
     @request_mapping("/bottom", method="get")
@@ -51,3 +53,4 @@ class MyView(View):
             'center': 'new.html',
         };
         return render(request, 'home.html', context);
+

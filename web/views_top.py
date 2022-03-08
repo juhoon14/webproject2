@@ -17,6 +17,7 @@ class TopView(View):
         };
         return render(request, 'home.html', context);
 
+
     @request_mapping("/2", method="get")
     def top2(self, request):
 
@@ -24,6 +25,7 @@ class TopView(View):
             'center': 'top/top2.html',
         };
         return render(request, 'home.html', context);
+
 
     @request_mapping("/3", method="get")
     def top3(self, request):

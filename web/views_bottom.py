@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views import View
 from django_request_mapping import request_mapping
-# Create your views here.
 
 
 
@@ -41,3 +40,4 @@ class BottomView(View):
             'center': 'bottom/bottom8.html',
         };
         return render(request, 'home.html', context);
+
