@@ -1,25 +1,23 @@
 {% load static%}
-<style>
-    #grid{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-    }
-    #pic{
-        margin:30px;
-    }
+<link href="{% static 'css/itemdetailpage.css' %}" rel="stylesheet"/>
 
+<style>
+    img{
+        max-width: 100%;
+        height: auto;
+    }
 </style>
 
 <script>
 
 </script>
 
-<section>
+<section class="topsection">
 <!--사진 + 제품 이름 + 가격 + 사이즈/수량선택 + 장바구니 넣기-->
-    <div id="grid">
-        <span id="pic">
+    <div class="grid">
+        <span class="pic">
         <img src="{% static 'img/02.jpg' %}" ></span>
-        <span id="pic">
+        <span class="pic">
         제품명: 남성옷2<br>
         <form>
         가격: <span class="text-muted text-decoration-line-through">$20.00</span>
@@ -44,7 +42,26 @@
         *5개 초과 주문시 판매자와 상의하세요
         </span>
     </div>
-
+</section>
 <!--제품 상세 페이지-->
+<section>
+    <div class="detail">
+        <h1>포인트 저지</h1>
+        <p> </p>
+        <p>색상: Ivory</p>
+        <p>사이즈: S, M, L, XL</p>
+        <p> </p>
+        <img src="{% static 'img/02.jpg' %}" class="detailpic">
+        <div>
+            <br>
+            계절과 상관없이 저희 쇼핑몰 역대 최다 판매를 기록중인 인기 제품입니다.<br>
+            최다 판매 기념 10% 상시 할인 적용중입니다. <br><br>
+            아이보리 색상에 초록색과 빨간색 포인트가 매력적입니다.<br>
+            기존 아우터에 비해 타이트한 핏으로 제작되었습니다.<br><br>
+            정확한 사이즈는 하단의 상세 사이즈표를 참고하세요<br>
+        </div>
+        <img src="{% static 'img/size.jpg' %}" class="detailpic">
+    </div>
 
 </section>
+
