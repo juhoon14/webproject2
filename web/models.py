@@ -12,8 +12,7 @@ class Cart(models.Model):
 
 
 class Category(models.Model):
-    category_code = models.IntegerField(primary_key=True)
-    category_code2 = models.IntegerField(blank=True, null=True)
+    category_code = models.AutoField(primary_key=True)
     category_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
@@ -24,12 +23,10 @@ class Category(models.Model):
 class Item(models.Model):
     product_number = models.AutoField(primary_key=True)
     c_code = models.ForeignKey(Category, models.DO_NOTHING, db_column='c_code', blank=True, null=True)
-    product_img = models.TextField(blank=True, null=True)
+    product_img = models.CharField(max_length=50, blank=True, null=True)
     product_name = models.CharField(max_length=50, blank=True, null=True)
-    product_price = models.IntegerField(blank=True, null=True)
+    product_price = models.CharField(max_length=15, blank=True, null=True)
     product_stock = models.IntegerField(blank=True, null=True)
-    product_desc = models.TextField(blank=True, null=True)
-    product_date = models.DateField(blank=True, null=True)
     product_hits = models.IntegerField(blank=True, null=True)
 
     class Meta:

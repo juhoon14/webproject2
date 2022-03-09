@@ -15,15 +15,11 @@ class MyView(View):
 
     @request_mapping("/a", method="get")
     def all(self, request):
-
-        context = {
-            'center': 'view_option.html',
-        }
-        return render(request, 'home.html', context);
+        context = {'center': 'view_option.html'}
+        return render(request, 'home.html', context)
 
     @request_mapping("/register", method="get")
     def register(self, request):
-
         return render(request, 'register.html')
 
     @request_mapping("/registerimpl", method="post")
