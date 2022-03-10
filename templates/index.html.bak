@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="ko">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -18,7 +18,6 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="head">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/">1st group</a>
                 <a class="navbar-brand" href="/">머&이</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -37,25 +36,12 @@
                             </ul>
                         </li>
                     </ul>
-                </div>
-                <div class="collapse navbar-collapse">
-                    {% if request.session.sessionid == None %}
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li><a class="nav-link active" href="/login" style="text-decoration:none; color:black">Login</a></li>
-                        <li><a class="nav-link active" href="/register" style="text-decoration:none; color:black">Sing up</a></li>
-                    </ul>
-                    {% else %}
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-link active"><span>{{request.session.sessionname}}</span> 님 환영합니다</li>
-                        <li><a class="nav-link active" href="/logout" style="text-decoration:none; color:black">Logout</a></li>
-                    </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
-                    {% endif %}
                     </form>
                     {% if request.session.sessionid == None %}
                     <form class="register">
@@ -309,7 +295,6 @@
                 </div>
             </div>
         </section>
-        {% endif %}
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; @ce:1str </p></div>
