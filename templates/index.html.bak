@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<style>
-    #cart{
-        text-decoration:none;
-    }
-
-</style>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -37,19 +31,16 @@
                                 <li><a class="dropdown-item" href="/top">Top</a></li>
                                 <li><a class="dropdown-item" href="/bottom">Bottom</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="/popular">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="/new">New Arrivals</a></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                             </ul>
                         </li>
                     </ul>
-<!--                    이거 폼 지워도 되지 않나..? -->
-<!--                    <form class="d-flex">-->
-                        <a href="/cart" id="cart"><button class="btn btn-outline-dark" type="submit">
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button></a>
-<!--                    </form>-->
                         </button>
                     </form>
                     {% if request.session.sessionid == None %}
@@ -304,7 +295,6 @@
                 </div>
             </div>
         </section>
-        {% endif %}
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; @ce:1str </p></div>
