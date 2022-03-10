@@ -1,0 +1,24 @@
+.topsection{
+    border-bottom:2px solid black;
+    margin-bottom:30px;
+    padding-bottom:30px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+}
+
+.pic{
+    margin:30px auto;
+}
+
+.detail{
+    text-align:center;
+}
+
+.detailpic{
+    width:500px auto;
+    margin-top:30px;
+    margin-bottom:30px;
+}

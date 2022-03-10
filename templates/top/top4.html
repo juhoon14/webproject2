@@ -1,25 +1,24 @@
 {% load static%}
-<style>
-    #grid{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-    }
-    #pic{
-        margin:30px;
-    }
+<link href="{% static 'css/itemdetailpage.css' %}" rel="stylesheet"/>
 
+<style>
+    img{
+        max-width: 100%;
+        height: auto;
+    }
 </style>
 
 <script>
 
 </script>
 
-<section>
+<section class="topsection">
 <!--사진 + 제품 이름 + 가격 + 사이즈/수량선택 + 장바구니 넣기-->
-    <div id="grid">
-        <span id="pic">
+    <div class="grid">
+        <span class="pic">
         <img src="{% static 'img/04.jpg' %}" ></span>
-        제품명: 남성옷1<br>
+        <span class="pic">
+        제품명: 남성옷4<br>
         <form>
         가격: $40<br>
         사이즈<select name="size">
@@ -42,8 +41,25 @@
         *5개 초과 주문시 판매자와 상의하세요
         </span>
     </div>
+</section>
 
 <!--제품 상세 페이지-->
-
+<section>
+    <div class="detail">
+        <h1>NY 맨투맨</h1>
+        <p> </p>
+        <p>색상: Black</p>
+        <p>사이즈: S, M, L, XL</p>
+        <p> </p>
+        <img src="{% static 'img/04.jpg' %}" class="detailpic">
+        <div>
+            3월 첫째주 인기상품<br> MLB 스타일 뉴욕 양키스 버전 맨투맨입니다.<br>
+            무난한 블랙 색상에 NY 빅로고로 포인트를 주었습니다.<br>
+            얇은 기모 버전으로 봄가을에는 단독으로도 입으실 수 있습니다.<br><br>
+            정확한 사이즈는 하단의 상세 사이즈표를 참고하세요<br>
+        </div>
+        <img src="{% static 'img/size.jpg' %}" class="detailpic">
+    </div>
 
 </section>
+

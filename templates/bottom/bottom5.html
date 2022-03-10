@@ -1,25 +1,23 @@
 {% load static%}
-<style>
-    #grid{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-    }
-    #pic{
-        margin:30px;
-    }
+<link href="{% static 'css/itemdetailpage.css' %}" rel="stylesheet"/>
 
+<style>
+    img{
+        max-width: 100%;
+        height: auto;
+    }
 </style>
 
 <script>
 
 </script>
 
-<section>
+<section class="topsection">
 <!--사진 + 제품 이름 + 가격 + 사이즈/수량선택 + 장바구니 넣기-->
-    <div id="grid">
-        <span id="pic">
+    <div class="grid">
+        <span class="pic">
         <img src="{% static 'img/05.jpg' %}" ></span>
-        <span id="pic">
+        <span class="pic">
         제품명: 남성옷5<br>
         <form>
         가격: <span class="text-muted text-decoration-line-through">$50.00</span>
@@ -44,8 +42,26 @@
         *5개 초과 주문시 판매자와 상의하세요
         </span>
     </div>
-
+</section>
 <!--제품 상세 페이지-->
-
+<section>
+    <div class="detail">
+        <h1>스트링 쇼츠</h1>
+        <p> </p>
+        <p>색상: Beige</p>
+        <p>사이즈: S, M, L, XL</p>
+        <p> </p>
+        <img src="{% static 'img/05.jpg' %}" class="detailpic">
+        <div>
+            <br>
+            역시즌 특가!<br>
+            출시 기념으로 여름을 일찍 준비하는 얼리버드들을 위한 50% 할인 들어갑니다.<br>
+            <br>
+            허리에 밴딩 적용되어 편안한 착용감에 스트링으로 조절도 가능합니다.<br>
+            스트링에는 체크무늬 포인트가 들어가 세련되었습니다.<br><br>
+            정확한 사이즈는 하단의 상세 사이즈표를 참고하세요<br>
+        </div>
+        <img src="{% static 'img/size5.jpg' %}" class="detailpic">
+    </div>
 
 </section>

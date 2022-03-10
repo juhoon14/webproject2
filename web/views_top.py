@@ -14,29 +14,31 @@ class TopView(View):
 
         context = {
             'center': 'top/top1.html',
-        }
-        return render(request, 'home.html', context)
+        };
+        return render(request, 'home.html', context);
+
 
     @request_mapping("/2", method="get")
     def top2(self, request):
 
         context = {
             'center': 'top/top2.html',
-        }
-        return render(request, 'home.html', context)
+        };
+        return render(request, 'home.html', context);
+
 
     @request_mapping("/3", method="get")
     def top3(self, request):
 
         context = {
             'center': 'top/top3.html',
-        }
-        return render(request, 'home.html', context)
+        };
+        return render(request, 'home.html', context);
 
     @request_mapping("/4", method="get")
     def top4(self, request):
 
         context = {
             'center': 'top/top4.html',
-        }
-        return render(request, 'home.html', context)
+        };
+        return render(request, 'home.html', context);

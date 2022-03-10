@@ -14,12 +14,13 @@ class MyView(View):
     def index(self,request):
         return render(request,'index.html')
 
-    @request_mapping("/a", method="get")
-    def all(self, request):
+    @request_mapping("/cart", method="get")
+    def cart(self, request):
 
         context = {
-            'center': 'view_option.html',
-        }
+            'center': 'cart.html',
+        };
+
         return render(request, 'home.html', context);
 
     @request_mapping("/top", method="get")
@@ -27,7 +28,8 @@ class MyView(View):
 
         context = {
             'center': 'top/top.html',
-        }
+        };
+
         return render(request, 'home.html', context);
 
     @request_mapping("/bottom/", method="get")
@@ -35,8 +37,25 @@ class MyView(View):
 
         context = {
             'center': 'bottom/bottom.html',
-        }
+        };
         return render(request, 'home.html', context);
+
+    @request_mapping("/popular", method="get")
+    def popular(self, request):
+
+        context = {
+            'center': 'popular.html',
+        };
+        return render(request, 'home.html', context);
+
+    @request_mapping("/new", method="get")
+    def new(self, request):
+
+        context = {
+            'center': 'new.html',
+        };
+        return render(request, 'home.html', context);
+
 
     @request_mapping("register", method="get")
     def register(self, request):

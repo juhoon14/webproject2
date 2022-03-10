@@ -1,25 +1,22 @@
 {% load static%}
+<link href="{% static 'css/itemdetailpage.css' %}" rel="stylesheet"/>
 <style>
-    #grid{
-        display:grid;
-        grid-template-columns:1fr 1fr;
+    img{
+        max-width: 100%;
+        height: auto;
     }
-    #pic{
-        margin:30px;
-    }
-
 </style>
 
 <script>
 
 </script>
 
-<section>
+<section class="topsection">
 <!--사진 + 제품 이름 + 가격 + 사이즈/수량선택 + 장바구니 넣기-->
-    <div id="grid">
-        <span id="pic">
+    <div class="grid">
+        <span class="pic">
         <img src="{% static 'img/01.jpg' %}" ></span>
-
+        <span class="pic">
         제품명: 남성옷1<br>
         <form>
         가격: $40<br>
@@ -37,14 +34,31 @@
             <option value="5">5</option><br>
         </select>
         </form>
-
-        <span class="text-center"><a class="btn btn-outline-dark mt-auto" href="#!">ADD TO CART</a></span><br>
-
+        <span>
+            <span class="text-center"><a class="btn btn-outline-dark mt-auto" href="#!">ADD TO CART</a></span><br>
+        </span>
         *5개 초과 주문시 판매자와 상의하세요
         </span>
     </div>
-
+</section>
 <!--제품 상세 페이지-->
-
+<section>
+    <div class="detail">
+        <h1>[3월 신상] GUCCI 자켓</h1>
+        <p> </p>
+        <p>색상: Navy</p>
+        <p>사이즈: S, M, L, XL</p>
+        <p> </p>
+        <img src="{% static 'img/01.jpg' %}" class="detailpic">
+        <div>
+            <br>
+            GUCCI 로고가 박힌 야구점퍼입니다.<br>
+            어디에나 잘 어울리는 네이비 색상에 흰색 라인이 포인트로 들어가 있습니다.<br>
+            4온스 누빔으로 늦가을에서 초겨울까지도 충분히 입을 수 있습니다.<br><br>
+            정확한 사이즈는 하단의 상세 사이즈표를 참고하세요<br>
+        </div>
+        <img src="{% static 'img/size.jpg' %}" class="detailpic">
+    </div>
 
 </section>
+
