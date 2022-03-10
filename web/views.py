@@ -1,4 +1,6 @@
-from django.shortcuts import render
+import json
+
+from django.shortcuts import render, redirect
 from django.views import View
 from django_request_mapping import request_mapping
 from django.http import JsonResponse
@@ -74,14 +76,15 @@ class MyView(View):
 
     @request_mapping("/loginimpl", method="post")
     def loginimpl(self, request):
+        data = json.loads(request.body)
         id = request.POST['id']
         pwd = request.POST['pwd']
         context = {}
         try:
             user = Users.objects.get(user_id=id, user_pwd=pwd)
-            request.session['sessionid'] = id
-            context['uname'] = user.user_name
-            return render(request, 'index.html', context)
+            request.session['sessionid'] = user.user_id
+            request.session['sessionname'] = user.user_name
+            return redirect("/")
         except:
             context['center'] = 'login.html'
             context['print'] = "아이디 혹은 비밀번호를 다시 입력해주세요."
@@ -92,7 +95,7 @@ class MyView(View):
     def logout(self, request):
         if request.session['sessionid'] != None:
             del request.session['sessionid']
-        return render(request, 'index.html')
+        return redirect("/")
 
     @request_mapping("/top", method="get")
     def top(self, request):
