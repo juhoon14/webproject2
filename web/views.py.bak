@@ -1,10 +1,8 @@
-from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 from django_request_mapping import request_mapping
 # Create your views here.
-# coding:utf-8
-from web.models import Users
+
 
 
 @request_mapping("")
@@ -72,9 +70,9 @@ class MyView(View):
         context = {}
         try:
             Users.objects.get(user_id=id)
-            context['data'] = 'ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ID ì…ë‹ˆë‹¤..'
+            context['data'] = '»ç¿ëÇÒ ¼ö ¾ø´Â ID ÀÔ´Ï´Ù.'
         except:
-            context['data'] = 'ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ID ì…ë‹ˆë‹¤.'
+            context['data'] = '»ç¿ëÇÒ ¼ö ÀÖ´Â ID ÀÔ´Ï´Ù.'
 
         return JsonResponse(context)
 
@@ -85,11 +83,11 @@ class MyView(View):
         context = {}
         try:
             if pwd1 == pwd2:
-                context['data'] = 'ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•©ë‹ˆë‹¤.'
+                context['data'] = 'ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÕ´Ï´Ù.'
             else:
                 Exception
         except:
-            context['data'] = 'ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.'
+            context['data'] = 'ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.'
 
         return JsonResponse(context)
 
@@ -108,7 +106,7 @@ class MyView(View):
             return render(request, 'index.html')
         except:
             context['center'] = 'login.html'
-            context['print'] = "ì•„ì´ë”” í˜¹ì€ ë¹„ë°€ë²ˆí˜¸ë¥¼ ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”."
+            context['print'] = "¾ÆÀÌµğ È¤Àº ºñ¹Ğ¹øÈ£¸¦ ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä."
 
         return render(request, context['center'], context)
 
