@@ -140,4 +140,3 @@ STATICFILES_DIRS = [
 UPLOAD_DIR = os.path.join(BASE_DIR, 'static/img')
 
 UPLOAD_DIR = os.path.join(BASE_DIR, 'static/img')
-

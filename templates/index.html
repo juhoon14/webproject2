@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="ko">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -41,13 +41,13 @@
                 <div class="collapse navbar-collapse">
                     {% if request.session.sessionid == None %}
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li><a class="nav-link active" href="/login" style="text-decoration:none; color:black">Login</a></li>
-                        <li><a class="nav-link active" href="/register" style="text-decoration:none; color:black">Sing up</a></li>
+                        <li><a class="nav-link active" href="/user/login" style="text-decoration:none; color:black">Login</a></li>
+                        <li><a class="nav-link active" href="/user/register" style="text-decoration:none; color:black">Sing up</a></li>
                     </ul>
                     {% else %}
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-link active"><span>{{request.session.sessionname}}</span> 님 환영합니다</li>
-                        <li><a class="nav-link active" href="/logout" style="text-decoration:none; color:black">Logout</a></li>
+                        <li><a class="nav-link active" href="/user/logout" style="text-decoration:none; color:black">Logout</a></li>
                     </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
@@ -57,40 +57,6 @@
                         </button>
                     {% endif %}
                     </form>
-                    {% if request.session.sessionid == None %}
-                    <form class="register">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/register';">
-                                <img src="{% static 'img/person-plus-fill.svg' %}">
-                                <a href="/register" style="text-decoration:none; color:black;">회원가입</a>
-                            </button>
-                    </form>
-                    <form class="login">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/login';">
-                                <img src="{% static 'img/person-circle.svg' %}"> 로그인
-                            </button>
-                    </form>
-                    <form class="reg">
-                        <button class="btn btn-outline-dark" type="button" onclick="location.href='/reg';">
-                            <img src="{% static 'img/person-dash-fill.svg' %}"> test
-                        </button>
-                    </form>
-                    {% else %}
-                    <form class="logout">
-                        <a href="/logout" style="text-decoration:none; color:black;">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/logout';">
-                                <img src="{% static 'img/person-dash-fill.svg' %}"> 로그아웃
-                            </button>
-                        </a>
-                    </form>
-                    {% endif %}
-                    {% if request.session.sessionid == "admin" %}
-                    <form class="itemadd">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            <a href="/item/i">상품등록</a>
-                        </button>
-                    </form>
-                    {% endif %}
                 </div>
             </div>
         </nav>

@@ -1,0 +1,118 @@
+﻿<!doctype html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Password Serch</title>
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>
+            function mail() {
+                var input_id = document.querySelector('input[name="id"]');
+                var input_name = document.querySelector('input[name="name"]');
+                var input_email = document.querySelector('input[name="email"]');
+                $.ajax({
+                    url:'pwdserchimpl',
+                    type:'GET',
+                    data:{'input_id':input_id.value,
+                          'input_name':input_name.value,
+                          'input_email':input_email.value},
+                    datatype:'json',
+                    success:function() {
+                        document.getElementById("emaillable").innerHTML = "이메일이 전송되었습니다.";
+                        document.getElementById("emailch").style.display = "block";
+                    }
+                });
+            }
+            function mailcheck() {
+                var email_ch = document.querySelector('input[name="email_ch"]');
+                var input_id = document.querySelector('input[name="id"]');
+                $.ajax({
+                    url:'pwdserchimpl2',
+                    type:'GET',
+                    data:{'email_ch':email_ch.value,
+                        'input_id':input_id.value},
+                    datatype:'json',
+                    success:function(data) {
+                        if(data['data'] == 1) {
+                            document.getElementById("check").innerHTML = "인증번호가 맞습니다.";
+                            document.getElementById("check").style.color = "blue";
+                            document.getElementById("pwdchange").style.display = "block";
+                            document.getElementById("change").style.display = "block";
+                        } else {
+                            document.getElementById("check").innerHTML = "인증번호가 틀림니다.";
+                            document.getElementById("check").style.color = "red";
+                        }
+                    }
+                });
+            }
+
+            function check_pw() { //비밀번호 맞는지 확인
+                if (document.getElementsByName('pwd')[0].value == document.getElementsByName('pwd2')[0].value) {
+                    document.getElementById('pwdchange2').innerHTML='비밀번호가 일치합니다';
+                    document.getElementById('pwdchange2').style.color='blue';
+                } else {
+                    document.getElementById('pwdchange2').innerHTML='비밀번호가 일치하지 않습니다';
+                    document.getElementById('pwdchange2').style.color='red';
+                    document.getElementsByName('pwd2')[0].value = '';
+                }
+            }
+        </script>
+        <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="{% static 'css/signin.css'%}" rel="stylesheet">
+    </head>
+    <body class="text-center">
+        <main class="form-signin">
+            <form action="/user/pwdserchsave" method="post">
+                {% csrf_token %}
+                <a href="/"><img class="mb-4" src="{% static 'img/bootstrap-logo.svg' %}" alt="" width="72" height="57"></a>
+                <h1 class="h3 mb-3 fw-normal">비밀번호 찾기</h1>
+                <span style="color:red; font-size:0.9em;">{{print}}</span>
+                <div class="form-floating">
+                    <input type="text" name="id" class="form-control" id="floatingid" placeholder="ID" required>
+                    <label for="floatingid">ID</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" name="name" class="form-control" id="floatingname" placeholder="Name" required>
+                    <label for="floatingname">Name</label>
+                </div>
+                <div class="form-floating">
+                    <input type="text" name="email" class="form-control" id="floatingemail" placeholder="email" required>
+                    <label for="floatingemail" id="emaillable">email 3초정도 소요</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="button" onclick="mail()">인증번호 전송</button>
+                <div class="form-floating" style="display:none" id="emailch">
+                    <input type="text" name="email_ch" class="form-control" id="floatingemailch" placeholder="email" required>
+                    <label for="floatingemailch" id="check" value="{{message}}">인증번호</label>
+                    <button class="w-100 btn btn-lg btn-primary" type="butoon" onclick="mailcheck()">인증번호 확인</button>
+                </div>
+                <div class="form-floating" style="display:none" id="pwdchange">
+                    <input type="password" name="pwd" class="form-control" id="floatingpwdchange" placeholder="Password" onchange="check_pw()" required>
+                    <label for="floatingpwdchange">Password</label>
+                    <div class="form-floating">
+                        <input type="password" name="pwd2" class="form-control" id="floatingpwdchange2" placeholder="Password Check" onchange="check_pw()" required>
+                        <label for="floatingpwdchange2" id="pwdchange2">Password Check</label>
+                    </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit" style="display:none" id="change">비밀번호 변경</button>
+                </div>
+            </form>
+            <a href="/user/idserch" style="text-decoration:none; color:black">아이디 찾기</a> |
+            <a href="/user/register" style="text-decoration:none; color:black">회원가입</a>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+        </main>
+    </body>
+</html>
