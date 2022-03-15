@@ -97,7 +97,7 @@ class UserView(View):
     def logout(self, request):
         if request.session['sessionid'] != None:
             del request.session['sessionid']
-        return redirect(request, 'index.html')
+        return redirect("/")
 
     @request_mapping("/idsearchimpl", method="post")
     def idsearchimpl(self, request):
