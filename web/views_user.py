@@ -111,7 +111,7 @@ class UserView(View):
             context = {'print': '일치하는 이름 또는 핸드폰번호가 없습니다.'}
         return render(request, "user/idsearch.html", context)
 
-    @request_mapping("/idserch", method="get")
+    @request_mapping("/idsearch", method="get")
     def idsearch(self, request):
         return render(request, 'user/idsearch.html')
 
