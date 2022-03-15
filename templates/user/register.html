@@ -35,7 +35,13 @@
                     data:{'input_id':input_id.value},
                     datatype:'json',
                     success: function(data){
-                        document.all('idch').innerHTML=data['data'];
+                       if (data['data'] == 1) {
+                            document.all('idch').innerHTML = "사용할 수 없는 ID 입니다.";
+                            document.all('idch').style.color = 'red';
+                        } else {
+                            document.all('idch').innerHTML = "사용할 수 있는 ID 입니다.";
+                            document.all('idch').style.color = 'blue';
+                        }
                     }
                 });
             }
@@ -68,31 +74,41 @@
     <link href="{% static 'css/signin.css'%}" rel="stylesheet">
     </head>
     <body class="text-center">
+
         <main class="form-signin">
-            <form action="registerimpl" method="post">
-                <img class="mb-4" src="{% static 'img/bootstrap-logo.svg' %}" alt="" width="72" height="57">
-                <h1 class="h3 mb-3 fw-normal">Please Register</h1>
+            <form action="/registerimpl" method="post">
+                {% csrf_token %}
+                <a href="/"><img class="mb-4" src="{% static 'img/bootstrap-logo.svg' %}" alt="" width="72" height="57"></a>
+                <h1 class="h3 mb-3 fw-normal">Please Sing Up</h1>
+                {% if error %}
+                    <label style="color:red">{{error}}</label>
+                {% endif %}
                 <div class="form-floating">
-                    <input type="text" name="id" class="form-control" id="floatingInput" placeholder="ID">
-                    <label for="floatingInput">ID</label>
+                    <input type="text" name="id" class="form-control" id="floatingInput" placeholder="ID" required>
+                    <label for="floatingInput" id="idch">ID</label>
                 </div>
                 <div class="form-floating">
-                    <button class="w-100 btn btn-lg btn-primary" type="button" onclick="idcheck()" id="idch">중복 확인</button>
+                    <button class="w-100 btn btn-lg btn-primary" type="button" onclick="idcheck()">중복 확인</button>
                 </div>
                 <br>
                 <div class="form-floating">
-                    <input type="password" name="pwd" class="form-control" id="floatingPassword" placeholder="Password" onchange="check_pw()">
+                    <input type="password" name="pwd" class="form-control" id="floatingPassword" placeholder="Password" onchange="check_pw()" required>
                     <label for="floatingPassword">Password</label>
                 </div>
                 <div class="form-floating">
-                    <input type="password" name="pwd2" class="form-control" id="floatingPassword1" placeholder="Passwordcheck" onchange="check_pw()">
+                    <input type="password" name="pwd2" class="form-control" id="floatingPassword1" placeholder="Passwordcheck" onchange="check_pw()" required>
                     <label for="floatingPassword" id="pwch">Password-Check</label>
                 </div>
+                <div class="form-floating">
+                    <input type="text" name="name" class="form-control" id="floatingname" placeholder="name" required>
+                    <label for="floatingname">Name</label>
+                </div>
+                <br>
                 <div class="form-floating">
                     <button class="w-100 btn btn-lg btn-primary" type="button" onclick="findAddr()">주소 검색</button>
                 </div>
                 <div class="form-floating">
-                    <input type="text" name="addressName1" class="form-control" id="floatingaddr" placeholder="Address" readonly>
+                    <input type="text" name="addressName1" class="form-control" id="floatingaddr" placeholder="Address" readonly required>
                     <label for="floatingaddr">Address</label>
                 </div>
                 <div class="form-floating">
@@ -101,8 +117,8 @@
                 </div>
                 <br>
                 <div class="form-floating">
-                    <input type="text" name="phone" class="form-control" id="floatingphone" placeholder="Phone number">
-                    <label for="floatingphone">Phone number</label>
+                    <input type="text" name="phone" class="form-control" id="floatingphone" placeholder="Phone number" required>
+                    <label for="floatingphone">Phone number (숫자만 입력)</label>
                 </div>
                 <br>
                 <div class="form-floating">
