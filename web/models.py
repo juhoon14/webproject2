@@ -13,7 +13,7 @@ class Cart(models.Model):
 
 class Category(models.Model):
     category_code = models.IntegerField(primary_key=True)
-    category_code2 = models.IntegerField(blank=True, null=True)
+    # category_code2 = models.IntegerField(blank=True, null=True)
     category_name = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
@@ -27,9 +27,9 @@ class Item(models.Model):
     product_img = models.TextField(blank=True, null=True)
     product_name = models.CharField(max_length=50, blank=True, null=True)
     product_price = models.IntegerField(blank=True, null=True)
-    product_stock = models.IntegerField(blank=True, null=True)
+    # product_stock = models.IntegerField(blank=True, null=True)
     product_desc = models.TextField(blank=True, null=True)
-    product_date = models.DateField(blank=True, null=True)
+    product_date = models.DateField(auto_now=True, null=True)
     product_hits = models.IntegerField(blank=True, null=True)
 
     class Meta:

@@ -4,7 +4,7 @@ from django.views import View
 from django_request_mapping import request_mapping
 # Create your views here.
 # coding:utf-8
-from web.models import Users
+from web.models import Users, Item
 
 
 @request_mapping("")
@@ -12,7 +12,13 @@ class MyView(View):
 
     @request_mapping("/", method="get")
     def index(self,request):
-        return render(request,'index.html')
+        objs = Item.objects.all();
+        print(objs.query);
+        context = {
+            'center': 'item/list.html',
+            'objs': objs
+        };
+        return render(request,'index.html', context)
 
     @request_mapping("/cart", method="get")
     def cart(self, request):
@@ -23,36 +29,23 @@ class MyView(View):
 
         return render(request, 'home.html', context);
 
-    @request_mapping("/top", method="get")
-    def top(self, request):
 
-        context = {
-            'center': 'top/top.html',
-        };
-
-        return render(request, 'home.html', context);
-
-    @request_mapping("/bottom/", method="get")
-    def bottom(self, request):
-
-        context = {
-            'center': 'bottom/bottom.html',
-        };
-        return render(request, 'home.html', context);
 
     @request_mapping("/popular", method="get")
     def popular(self, request):
-
+        objs = Item.objects.all();
         context = {
             'center': 'popular.html',
+            'objs':objs
         };
         return render(request, 'home.html', context);
 
     @request_mapping("/new", method="get")
     def new(self, request):
-
+        objs = Item.objects.all();
         context = {
             'center': 'new.html',
+            'objs':objs
         };
         return render(request, 'home.html', context);
 
@@ -118,21 +111,30 @@ class MyView(View):
 
     @request_mapping("loginimpl", method="post")
     def loginimpl(self, request):
+        objs = Item.objects.all();
         id = request.POST['id']
         pwd = request.POST['pwd']
-        context = {}
+
         try:
             Users.objects.get(user_id=id, user_pwd=pwd)
             request.session['sessionid'] = id
-            return render(request, 'index.html')
+            context = {
+                'center': 'item/list.html',
+                'objs': objs
+            };
+            return render(request, 'index.html', context)
         except:
             context['center'] = 'login.html'
             context['print'] = "아이디 혹은 비밀번호를 다시 입력해주세요."
-
-        return render(request, context['center'], context)
+            return render(request, context['center'], context)
 
     @request_mapping("logout", method="get")
     def logout(self, request):
+        objs = Item.objects.all();
         if request.session['sessionid'] != None:
             del request.session['sessionid']
-        return render(request, 'index.html')
+        context = {
+            'center': 'item/list.html',
+            'objs': objs
+        };
+        return render(request, 'index.html', context)
