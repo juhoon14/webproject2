@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>ID Serch</title>
+        <title>ID Search</title>
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
         <style>
         .bd-placeholder-img {
@@ -24,7 +24,7 @@
     </head>
     <body class="text-center">
         <main class="form-signin">
-            <form action="/user/idserchimpl" method="post">
+            <form action="/user/idsearchimpl" method="post">
                 {% csrf_token %}
                 <a href="/"><img class="mb-4" src="{% static 'img/bootstrap-logo.svg' %}" alt="" width="72" height="57"></a>
                 <h1 class="h3 mb-3 fw-normal">아이디 찾기</h1>
@@ -39,7 +39,7 @@
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">아이디 찾기</button>
             </form>
-            <a href="/user/pwdserch" style="text-decoration:none; color:black">비밀번호 찾기</a> |
+            <a href="/user/pwdsearch" style="text-decoration:none; color:black">비밀번호 찾기</a> |
             <a href="/user/register" style="text-decoration:none; color:black">회원가입</a>
             <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
         </main>
