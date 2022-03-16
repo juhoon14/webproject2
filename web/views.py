@@ -50,6 +50,8 @@ class MyView(View):
         return render(request, 'home.html', context);
 
 
+
+
     # @request_mapping("register", method="get")
     # def register(self, request):
     #
