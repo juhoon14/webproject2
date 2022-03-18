@@ -11,15 +11,9 @@ from web.models import Item, Category
 @request_mapping("/item")
 class ItemView(View):
 
-    # @request_mapping("/i", method="get")
-    # def insert(self,request):
-    #     context = {'center':'/item/itemadd.html'}
-    #     return render(request,'index.html', context);
-
     @request_mapping("/a", method="get")
     def all(self,request):
         objs = Item.objects.all();
-        # print(objs.query);
         context = {
             'center':'item/list.html',
             'objs':objs
@@ -33,7 +27,6 @@ class ItemView(View):
             'center': 'top/top.html',
             'objs': objs
         };
-
         return render(request, 'home.html', context);
 
     @request_mapping("/bottom", method="get")
@@ -44,7 +37,6 @@ class ItemView(View):
             'objs': objs
         };
         return render(request, 'home.html', context);
-
 
     @request_mapping("/iv", method="get")
     def insertview(self,request):
@@ -74,7 +66,6 @@ class ItemView(View):
         cate = Category.objects.get(category_code=catg);
         obj = Item(product_name=name, product_price=price, product_img=imgname, product_desc=desc, c_code=cate);
         obj.save();
-
 
         return redirect('/item/a');
 

@@ -45,45 +45,39 @@
                         </li>
                     </ul>
 <!--                    <form class="d-flex">-->
-                        <a href="/cart"><button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button></a>
+
 <!--                    </form>-->
                     {% if request.session.sessionid == None %}
-                    <form class="register">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/user/register';">
-                                <img src="{% static 'img/person-plus-fill.svg' %}">
-                                <a href="/user/register" style="text-decoration:none; color:black;">회원가입</a>
-                            </button>
-                    </form>
-                    <form class="login">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/user/login';">
-                                <img src="{% static 'img/person-circle.svg' %}"> 로그인
-                            </button>
-                    </form>
-<!--                    <form class="reg">-->
-<!--                        <button class="btn btn-outline-dark" type="button" onclick="location.href='/reg';">-->
-<!--                            <img src="{% static 'img/person-dash-fill.svg' %}"> test-->
-<!--                        </button>-->
-<!--                    </form>-->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li><a class="nav-link active" href="/user/login" style="text-decoration:none; color:black">Login</a></li>
+                        <li><a class="nav-link active" href="/user/register" style="text-decoration:none; color:black">Join</a></li>
+                    </ul>
+
                     {% else %}
-                    <form class="logout">
-                        <a href="/user/logout" style="text-decoration:none; color:black;">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/user/logout';">
-                                <img src="{% static 'img/person-dash-fill.svg' %}"> 로그아웃
+                        {% if request.session.sessionid != "admin" %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-link active"><span>{{request.session.sessionname}}</span> 님 환영합니다</li>
+                            <li><a class="nav-link active" href="/user/logout" style="text-decoration:none; color:black">Logout</a></li>
+                            <li><a class="nav-link active" href="/user/mypage" style="text-decoration:none; color:black">MyPage</a></li>
+                        </ul>
+                        <form class="d-flex">
+                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/cart'">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </button>
-                        </a>
-                    </form>
-                    {% endif %}
-                    {% if request.session.sessionid == "admin" %}
-                    <form class="itemadd">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            <a href="/item/iv">상품등록</a>
-                        </button>
-                    </form>
+                        </form>
+                        {% else %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-link active"><span>{{request.session.sessionname}}</span> 님 환영합니다</li>
+                            <li><a class="nav-link active" href="/user/logout" style="text-decoration:none; color:black">Logout</a></li>
+                        <form class="itemadd">
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                <a href="/item/iv" id="itemadd1">상품등록</a>
+                            </button>
+                        </form>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

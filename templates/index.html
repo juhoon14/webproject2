@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
 <style>
-    #cart{
+    #itemadd1{
         text-decoration:none;
     }
 
@@ -19,11 +19,14 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/button.css' %}" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     </head>
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="head">
             <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/">1st group</a>
                 <a class="navbar-brand" href="/">머&이</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -38,50 +41,46 @@
                                 <li><a class="dropdown-item" href="/item/bottom">Bottom</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="/popular">Popular Items</a></li>
-<!--                                <li><a class="dropdown-item" href="/new">New Arrivals</a></li>-->
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                             </ul>
                         </li>
                     </ul>
-                        <a href="/cart" id="cart"><button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button></a>
-
+                </div>
+                <div class="collapse navbar-collapse">
                     {% if request.session.sessionid == None %}
-                    <form class="register">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/register';">
-                                <img src="{% static 'img/person-plus-fill.svg' %}">
-                                <a href="user/register" style="text-decoration:none; color:black;">회원가입</a>
-                            </button>
-                    </form>
-                    <form class="login">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='user/login';">
-                                <img src="{% static 'img/person-circle.svg' %}"> 로그인
-                            </button>
-                    </form>
-<!--                    <form class="reg">-->
-<!--                        <button class="btn btn-outline-dark" type="button" onclick="location.href='/reg';">-->
-<!--                            <img src="{% static 'img/person-dash-fill.svg' %}"> test-->
-<!--                        </button>-->
-<!--                    </form>-->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li><a class="nav-link active" href="/user/login" style="text-decoration:none; color:black">Login</a></li>
+                        <li><a class="nav-link active" href="/user/register" style="text-decoration:none; color:black">Join</a></li>
+                    </ul>
+
                     {% else %}
-                    <form class="logout">
-                        <a href="user/logout" style="text-decoration:none; color:black;">
-                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/logout';">
-                                <img src="{% static 'img/person-dash-fill.svg' %}"> 로그아웃
+                        {% if request.session.sessionid != "admin" %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-link active"><span>{{request.session.sessionname}}</span> 님 환영합니다</li>
+                            <li><a class="nav-link active" href="/user/logout" style="text-decoration:none; color:black">Logout</a></li>
+                            <li><a class="nav-link active" href="/user/mypage" style="text-decoration:none; color:black">MyPage</a></li>
+                        </ul>
+                        <form class="d-flex">
+                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/cart'">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </button>
-                        </a>
-                    </form>
+                        </form>
+                        {% else %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-link active"><span>{{request.session.sessionname}}</span> 님 환영합니다</li>
+                            <li><a class="nav-link active" href="/user/logout" style="text-decoration:none; color:black">Logout</a></li>
+                        <form class="itemadd">
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                <a href="/item/iv" id="itemadd1">상품등록</a>
+                            </button>
+                        </form>
+                        {% endif %}
                     {% endif %}
-                    {% if request.session.sessionid == "admin" %}
-                    <form class="itemadd">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            <a href="/item/iv">상품등록</a>
-                        </button>
-                    </form>
-                    {% endif %}
+
+
                 </div>
             </div>
         </nav>

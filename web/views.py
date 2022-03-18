@@ -13,7 +13,6 @@ class MyView(View):
     @request_mapping("/", method="get")
     def index(self,request):
         objs = Item.objects.all();
-        print(objs.query);
         context = {
             'center': 'item/list.html',
             'objs': objs
@@ -28,8 +27,6 @@ class MyView(View):
         };
 
         return render(request, 'home.html', context);
-
-
 
     @request_mapping("/popular", method="get")
     def popular(self, request):
