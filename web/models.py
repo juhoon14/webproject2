@@ -1,4 +1,8 @@
+from django.conf import settings
 from django.db import models
+
+from config import settings
+
 
 class Cart(models.Model):
     cart_number = models.AutoField(primary_key=True)
@@ -83,6 +87,12 @@ class OrderDetail(models.Model):
 class Orderr(models.Model):
     order_number = models.AutoField(primary_key=True)
     u = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
+    p_number = models.ForeignKey(Item, models.DO_NOTHING, db_column='p_number', blank=True, null=True)
+    order_name = models.CharField(max_length=20, blank=True, null=True)
+    order_phone = models.CharField(max_length=20, blank=True, null=True)
+    order_addr1 = models.CharField(max_length=100, blank=True, null=True)
+    order_addr2 = models.CharField(max_length=100, blank=True, null=True)
+    order_msg = models.TextField(blank=True, null=True)
     order_date = models.DateField(blank=True, null=True)
     order_status = models.CharField(max_length=10, blank=True, null=True)
 
@@ -108,7 +118,8 @@ class Users(models.Model):
     user_name = models.CharField(max_length=20, blank=True, null=True)
     user_phone = models.CharField(max_length=20, blank=True, null=True)
     user_email = models.CharField(max_length=50, blank=True, null=True)
-    user_address = models.CharField(max_length=100, blank=True, null=True)
+    user_address1 = models.CharField(max_length=100, blank=True, null=True)
+    user_address2 = models.CharField(max_length=100, blank=True, null=True)
     user_auth = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:

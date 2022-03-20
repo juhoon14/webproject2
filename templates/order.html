@@ -1,0 +1,306 @@
+﻿<!-- daum address api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<script language="JavaScript">
+	var price = 0;
+
+	function findAddr() {
+	    daum.postcode.load(function() {
+		    new daum.Postcode({
+			    oncomplete: function(data){
+				    var addr = '';
+				    if (data.userSelectedType == 'R') {
+					    addr = data.roadAddress;
+				    } else {
+					    addr = data.jibunaddress;
+				    }
+		            document.getElementsByName('addressName1')[0].value = addr;
+	            }
+            }).open();
+        });
+    }
+
+    function input() {
+        document.getElementById('ordername').value = "{{user.user_name}}"
+        document.getElementById('addr1').value = "{{user.user_address1}}"
+        document.getElementById('addr2').value = "{{user.user_address2}}"
+        document.getElementById('phone').value = "{{user.user_phone}}"
+        document.getElementById('email').value = "{{user.user_email}}"
+    }
+
+    function orderuser() {
+    	document.getElementsByName('touser')[0].value = "{{user.user_name}}";
+    	document.getElementsByName('orderaddr1')[0].value = "{{user.user_address1}}";
+    	document.getElementsByName('orderaddr2')[0].value = "{{user.user_address2}}";
+    	document.getElementsByName('orderphone')[0].value = "{{user.user_phone}}";
+    }
+
+    function bank(data) {
+		if (data==1)
+			document.getElementById('bankinput').style.display = "block";
+		else if (data == 2)
+			document.getElementById('bankinput').style.display = "none";
+		else if (data == 3)
+			document.getElementById('bankinput').style.display = "none";
+		else if (data == 4)
+			document.getElementById('bankinput').style.display = "none";
+    }
+</script>
+<script>
+    function get() {
+    	var name = document.querySelector('input[name="touser"]');
+    	var addr1 = document.querySelector('input[name="orderaddr1"]');
+    	var addr2 = document.querySelector('input[name="orderaddr2"]');
+    	var phone = document.querySelector('input[name="orderphone"]');
+    	var msg = document.querySelector('textarea[name="ordermsg"]');
+    	$.ajax({
+    		url:'ordercomplete',
+    		type:'GET',
+    		data:{'name':name.value,
+    			'addr1':addr1.value,
+    			'addr2':addr2.value,
+    			'phone':phone.value,
+    			'msg':msg.value},
+    		datatype:'json'
+    	}).done(function(data) {
+    		window.location.href = "ordercomplate2";
+    	});
+    }
+
+</script>
+<style>
+    table.type02 {
+border-collapse: separate;
+border-spacing: 0;
+text-align: left;
+line-height: 1.5;
+border-top: 1px solid #ccc;
+border-left: 1px solid #ccc;
+  margin : 20px 10px;
+}
+table.type02 th {
+width: 150px;
+padding: 10px;
+font-weight: bold;
+vertical-align: top;
+border-right: 1px solid #ccc;
+border-bottom: 1px solid #ccc;
+border-top: 1px solid #fff;
+border-left: 1px solid #fff;
+background: #eee;
+}
+table.type02 td {
+width: 950px;
+padding: 10px;
+vertical-align: top;
+border-right: 1px solid #ccc;
+border-bottom: 1px solid #ccc;
+}
+.content {
+	width: 800px;
+	margin-right: 150px;
+	margin-left: 150px;
+	margin-bottom: 150px;
+}
+.sidebar {
+	width: 350px;
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-right: 150px;
+	margin-bottom: 150px;
+	float: right;
+	border: 1px solid #bcbcbc;
+}
+</style>
+<section class="ftco-section">
+	<div style="margin-right: 150px; margin-left: 150px; margin-bottom: 130px">
+		<div>
+        	<h4>주문내역</h4>
+		</div>
+            <hr><br><br>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+							<thead class="thead-primary">
+								<tr>
+									<th>Image</th>
+									<th>Product</th>
+									<th>Price</th>
+									<th>Quantity</th>
+									<th>Total</th>
+								</tr>
+						  	</thead>
+						  	<tbody>
+							{% for o in obj %}
+							<form action="/cartdelete" method="get">
+								<tr class="alert" role="alert">
+									<input name="num" style="display:none" value="{{o.cart_number}}">
+									<td width="100px" style="table-layout:fixed">
+										<img src="/static/img/{{o.p_number.product_img}}" style="width:90px">
+									</td>
+									<td width="500px" style="table-layout:fixed">
+										<div style="margin-top:30px">
+											<span id="pname">{{o.p_number.product_name}}</span>
+										</div>
+									</td>
+									<td style="padding:35px 0px 0px 0px;"><script language="JavaScript">
+										document.write(({{o.p_number.product_price}}).toLocaleString());
+									</script>원</td>
+									<td class="quantity" width="20px" style="table-layout:fixed; padding:28px 0px 0px 0px;">
+										<div class="input-group">
+											<label name="quantity" style="padding:8px 0px 0px 10px;">{{o.product_count}}</label>
+										</div>
+									</td>
+									<td style="padding:35px 0px 0px 10px;">
+										<script language="JavaScript">
+											var total = {{o.p_number.product_price}}*{{o.product_count}}
+											document.write((total).toLocaleString());
+										</script>원
+									</td>
+								</tr>
+								<script language="JavaScript">
+									price += total;
+								</script>
+							{% endfor %}
+							</tbody>
+							<tfoot>
+								<tr style="text-align:right">
+									<td colspan="7">상품구매금액
+										<script language="JavaScript">
+											document.write((price).toLocaleString());
+										</script>
+										+ 배송비 0 = 합계 :
+										<h6 style="display:inline">
+											<script language="JavaScript">
+												document.write((price).toLocaleString());
+											</script>원
+										</h6>
+                                    </td>
+								</tr>
+							</tfoot>
+							</form>
+						</table>
+					</div>
+				</div>
+			</div>
+	</div>
+    <div style="margin-right: 150px; margin-left: 150px; margin-bottom: 150px">
+        <h4 style="display:inline; margin-right: 900px">주문정보</h4>
+		<p style="display:inline; font-size:13px"><span style="color:red; font-size:20px"><b>*</b></span><b>필수정보</b></p>
+        <hr>
+        <table class="type02" style="border: 1px solid gray">
+            <tr>
+                <th scope="row">주문하시는 분<span style="color:red; font-size:20px">*</span></th>
+                <td>
+                    <input type="text" id="ordername" required>&nbsp&nbsp
+                    <input type="checkbox" id="input" onclick="input()">내 정보 불러오기
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">주소<span style="color:red; font-size:20px">*</span></th>
+                <td>
+                    <input type="text" id="addr1" size="60" style="margin-bottom: 5px" readonly required>
+                    <button type="button" onclick="findAddr()">주소찾기</button><br>
+                    <input type="text" id="addr2" size="60"><span style="font-size:14px"> 상세주소</span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">휴대전화<span style="color:red; font-size:20px">*</span></th>
+                <td>
+                    <input type="text" id="phone" required><span style="font-size:14px"> (<b>ㅡ</b> 없이 입력)</span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">이메일<span style="color:red; font-size:20px">*</span></th>
+                <td>
+                    <input type="text" id="email" size="25" required><br>
+					<span style="font-size:13px">- 이메일을 통해 주문처리과정을 보내드립니다.</span><br>
+					<span style="font-size:13px">- 이메일 주소란에는 반드시 수신가능한 이메일주소를 입력해 해주세요</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+	<div style="margin-right: 150px; margin-left: 150px; margin-bottom: 150px">
+		<table class="type02" style="border: 1px solid gray">
+			<h4 style="display:inline; margin-right: 900px">배송정보</h4>
+			<p style="display:inline; font-size:13px"><span style="color:red; font-size:20px"><b>*</b></span><b>필수정보</b></p>
+        	<hr>
+			<tr>
+				<th scope="row">배송지 선택</th>
+				<td>
+					<input type="checkbox" id="userp" onclick="orderuser()"> 내 정보와 동일
+					<input type="checkbox" id="newuser" onclick="new()"> 새로운 배송지
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">받으시는 분<span style="color:red; font-size:20px">*</span></th>
+				<td>
+					<input type="text" name="touser" required>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">주소<span style="color:red; font-size:20px">*</span></th>
+                <td>
+                    <input type="text" name="orderaddr1" size="60" style="margin-bottom: 5px" readonly required>
+                    <button type="button" onclick="findAddr()">주소찾기</button><br>
+                    <input type="text" name="orderaddr2" size="60"><span style="font-size:14px"> 상세주소</span>
+                </td>
+			</tr>
+			<tr>
+				<th scope="row">휴대전화<span style="color:red; font-size:20px">*</span></th>
+                <td>
+                    <input type="text" name="orderphone" required><span style="font-size:14px"> (<b>ㅡ</b> 없이 입력)</span>
+                </td>
+			</tr>
+			<tr>
+				<th scope="row">배송메시지</th>
+				<td>
+					<textarea cols="70" rows="3" name="ordermsg"></textarea>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+	<h4 style="display:inline; margin-right: 900px; margin-left: 150px">결제수단</h4>
+	<hr style="margin-left: 150px; margin-right: 150px">
+	<div class="sidebar">
+		<p style="text-align: right">결제 최종 금액</p>
+		<h6 style="display:inline; margin-left: 200px; margin-top: 50px; font-size: 30px; color:blue">
+			<script language="JavaScript">
+				document.write((price).toLocaleString()+"원");
+			</script>
+		</h6><br><br>
+		<button type="button" style="width: 250px; height: 50px; margin-left: 50px" onclick="get()">결제하기</button>
+	</div>
+	<div class="content">
+		<table class="type02" style="border: 1px solid gray">
+			<tr>
+				<td>
+					<input type="radio" name="bankinput" value="1" onclick="bank(this.value)"> 무통장 입금
+					<input type="radio" name="bankinput" value="2" onclick="bank(this.value)"> 카드 결제
+					<input type="radio" name="bankinput" value="3" onclick="bank(this.value)"> 휴대폰 결제
+					<input type="radio" name="bankinput" value="4" onclick="bank(this.value)"> 에스크로(실시간 계좌이체)
+				</td>
+			</tr>
+			<table class="type02" style="border: 1px solid gray; display:none" id="bankinput" >
+				<tr>
+					<th scope="row">입금자명</th>
+					<td>
+						<input type="text" id="inputname">
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">입금은행</th>
+					<td>
+						<select size="1">
+							<option>::: 선택해주세요 :::</option>
+							<option>신한은행 110-000-000000 머&이</option>
+							<option>카카오뱅크 3333-00-0000000 머&이</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		</table>
+	</div>
+
+</section>

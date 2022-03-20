@@ -2,11 +2,11 @@
 from django.views import View
 from django_request_mapping import request_mapping
 from django.http import JsonResponse
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import smtplib
-import string
-import random
+from email.mime.text import MIMEText  # 메일
+from email.mime.multipart import MIMEMultipart  # 메일
+import smtplib  # 메일
+import string  # 랜덤 문자열 생성
+import random  # 랜덤 문자열 생성
 # Create your views here.
 
 from web.models import Users
@@ -34,8 +34,8 @@ class UserView(View):
         id = request.POST['id']
         pwd = request.POST['pwd']
         name = request.POST['name']
-        addr = request.POST['addressName1'] + ' '
-        addr += request.POST['addressName2']
+        addr1 = request.POST['addressName1']
+        addr2 = request.POST['addressName2']
         phone = request.POST['phone']
         email = request.POST['email']
         try:
@@ -44,7 +44,7 @@ class UserView(View):
             return render(request, "user/register.html", context)
         except:
             Users(user_id=id, user_pwd=pwd, user_name=name, user_phone=phone,
-                  user_email=email, user_address=addr).save()
+                  user_email=email, user_address1=addr1, user_address2=addr2).save()
             return redirect("/user/login")
 
     @request_mapping("/registerimplid", method="get")
@@ -135,8 +135,7 @@ class UserView(View):
             server.starttls()
             server.login("aossuper12", "wjdals312!")
 
-            mail_html = "<html><body><h1>"+message+" 코드를 입력해주세요"+"</h1></body></html>"
-
+            mail_html = "<html><body><h1>" + message + " 코드를 입력해주세요" + "</h1></body></html>"
             msg = MIMEMultipart('alternative')
             msg['Subject'] = "머&이 비밀번호 찾기 메일 입니다."
             msg['From'] = "aossuper12@gmail.com"
@@ -149,7 +148,7 @@ class UserView(View):
 
             return JsonResponse()
         except:
-            context = {'print':"해당하는 정보가 없습니다."}
+            context = {'print': "해당하는 정보가 없습니다."}
         return render(request, "user/pwdserch.html", context)
 
     @request_mapping("/pwdserchimpl2", method="get")
@@ -178,5 +177,10 @@ class UserView(View):
             obj.save()
             return redirect("/user/login")
         except:
-            context = {'print':'비밀번호 바꾸기 오류 관리자에게 문의하세요'}
+            context = {'print': '비밀번호 바꾸기 오류 관리자에게 문의하세요'}
         return render(request, "/user/pwdserch.html", context)
+
+    @request_mapping("/mypage", method="get")
+    def mypage(self, request):
+        context = {'center' : '/user/mypage.html'}
+        return render(request, "index.html", context)

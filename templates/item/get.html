@@ -1,0 +1,84 @@
+{% load static%}
+<link href="{% static 'css/itemdetailpage.css' %}" rel="stylesheet"/>
+<style>
+    img{
+        max-width: 100%;
+        height: auto;
+    }
+    #cnt{
+        width:50px;
+    }
+</style>
+<script>
+
+</script>
+
+<section class="topsection">
+<!--사진 + 제품 이름 + 가격 + 사이즈/수량선택 + 장바구니 넣기-->
+    <div class="grid">
+        <span class="pic">
+        <img src="/static/img/{{obj.product_img}}"></span>
+        <span class="pic">
+            제품명: {{obj.product_name}}<br>
+            <form>
+            가격: {{obj.product_price}}<br>
+            사이즈<select name="size">
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+            </select><br>
+            수량<input type="number" name="num" value="1" min="1" id="cnt"><br>
+            </form>
+            <span>
+                <span class="text-center"><a class="btn btn-outline-dark mt-auto" href="#!">ADD TO CART</a></span><br>
+            </span>
+        </span>
+    </div>
+</section>
+<!--제품 상세 페이지-->
+<section>
+    <div class="detail">
+
+        <p> </p>
+        <img src="/static/img/{{obj.product_img}}" class="detailpic">
+
+        <div>
+            {{obj.product_desc}}
+        </div>
+
+
+
+<!--사이즈표-->
+        <img src="/static/img/size{{obj.product_img}}">
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<section>-->
+
+
+<!--    <h1>Item Detail</h1>-->
+<!--    <img src="/static/img/{{obj.product_img}}"><br>-->
+<!--    <h3>NUM: {{obj.product_number}}</h3>-->
+<!--    <h3>NAME: {{obj.product_name}}</h3>-->
+<!--    <h3>PRICE: {{obj.product_price}}</h3>-->
+<!--    <h3>DETAIL: {{obj.product_DESC}}</h3>-->
+<!--    <input type="number" name="num">-->
+
+
+<!--</section>-->

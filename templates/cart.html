@@ -1,0 +1,98 @@
+﻿<script language="JavaScript">
+	var price = 0;
+
+	function modify() {
+		var input_num = document.querySelector('input[name="num"]');
+		var input_quantity = document.querySelector('input[name="quantity"]');
+		$.ajax({
+			url:'cartmodify',
+			type:'GET',
+			data:{'input_num':input_num.value,
+				'input_quantity':input_quantity.value},
+			datatype:'json'
+		}).done(function() {
+			alert("수정완료");
+			location.reload();
+		});
+	}
+</script>
+<section class="ftco-section">
+	<div style="margin-right: 150px; margin-left: 150px">
+		<div>
+        	<h4>장바구니</h4>
+		</div>
+            <hr><br><br>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+							<thead class="thead-primary">
+								<tr>
+									<th>Image</th>
+									<th>Product</th>
+									<th>Price</th>
+									<th>Quantity</th>
+									<th>Total</th>
+									<th>Choice</th>
+								</tr>
+						  	</thead>
+						  	<tbody>
+							{% for o in obj %}
+							<form action="/cartdelete" method="get">
+								<tr class="alert" role="alert">
+									<input name="num" style="display:none" value="{{o.cart_number}}">
+									<td width="100px" style="table-layout:fixed">
+										<img src="/static/img/{{o.p_number.product_img}}" style="width:90px">
+									</td>
+									<td width="500px" style="table-layout:fixed">
+										<div style="margin-top:30px">
+											<span id="pname">{{o.p_number.product_name}}</span>
+										</div>
+									</td>
+									<td style="padding:35px 0px 0px 0px;"><script language="JavaScript">
+										document.write(({{o.p_number.product_price}}).toLocaleString());
+									</script>원</td>
+									<td class="quantity" width="20px" style="table-layout:fixed; padding:28px 0px 0px 0px;">
+										<div class="input-group">
+											<input type="text" name="quantity" class="quantity form-control input-number" size="1" min="1" max="30" value="{{o.product_count}}">
+										</div>
+									</td>
+									<td style="padding:35px 0px 0px 10px;">
+										<script language="JavaScript">
+											var total = {{o.p_number.product_price}}*{{o.product_count}}
+											document.write((total).toLocaleString());
+										</script>원
+									</td>
+									<td style="padding:21px 0px 0px 0px;">
+										<button class="small button" type="button" onclick="modify()">Modify</button>
+										<br>
+										<button class="small red button" type="submit">Delete</button>
+									</td>
+								</tr>
+								<script language="JavaScript">
+									price += total;
+								</script>
+							{% endfor %}
+							</tbody>
+							<tfoot>
+								<tr style="text-align:right">
+									<td colspan="7">상품구매금액
+										<script language="JavaScript">
+											document.write((price).toLocaleString());
+										</script>
+										+ 배송비 0 = 합계 :
+										<h6 style="display:inline">
+											<script language="JavaScript">
+												document.write((price).toLocaleString());
+											</script>
+										</h6>원
+									<button class="small button" type="button" onclick="location.href='order'">전체 주문</button></td>
+								</tr>
+							</tfoot>
+							</form>
+						</table>
+					</div>
+				</div>
+			</div>
+	</div>
+</section>

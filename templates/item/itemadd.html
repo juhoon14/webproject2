@@ -1,4 +1,27 @@
-<section>
-    <h1>상품 등록</h1>
+<style>
+    section{
+        margin-left: 670px;
+        margin-top: 30px;
+        margin-bottom: 150px;
+            }
 
+</style>
+
+<section>
+    <h1>Item Add</h1>
+    <form action="/item/ii" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        NAME<input type="text" name="product_name"><br>
+        PRICE<input type="number" name="product_price"><br>
+<!--        DESC<input type="text" name="product_desc"><br>-->
+
+        CATG<select name="c_code">
+        {% for c in catg %}
+            <option value="{{c.category_code}}">{{c.category_name}}</option>
+        {% endfor %}
+        </select><br>
+        DESC<textarea name="product_desc"></textarea><br>
+        IMG<input type="file" name="product_img"><br>
+        <input type="submit" value="ADD">
+    </form>
 </section>

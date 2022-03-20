@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="container my-3">
+    <table class="table">
+        <thead>
+            <tr class="thead-dark">
+                <th>번 호</th>
+                <th>제 목</th>
+                <th>작성자</th>
+                <th>날 짜</th>
+                <th>조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if question_list %}
+        {% for question in question_list %}
+        <tr>
+            <!--번호-->
+            <td> {{ forloop.counter}} </td>
+            <td>
+                <a href="{% url 'custcen:detail' question.id %}"> {{ question.subject}}</a>
+            </td>
+            <!--제목-->
+            <td> {{ question.title }}</td>
+            <!--작성자-->
+            <td> {{ question.writer }}</td>
+            <!--날짜-->
+            <td> {{ question.create_date }}</td>
+            <!--조회수-->
+            <td> {{ question.views }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="5">질문이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <!--질문버튼-->
+    <a href="{% url 'custcen:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+    <!--질문버튼-->
+
+</div>
+
+{% endblock %}

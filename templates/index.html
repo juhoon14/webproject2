@@ -13,6 +13,13 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/button.css' %}" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
         <!-- Navigation-->
@@ -28,21 +35,31 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/all">All Products</a></li>
-                                <li><a class="dropdown-item" href="/top">Top</a></li>
-                                <li><a class="dropdown-item" href="/bottom">Bottom</a></li>
+                                <li><a class="dropdown-item" href="/item/all">All Products</a></li>
+                                <li><a class="dropdown-item" href="/item/top">Top</a></li>
+                                <li><a class="dropdown-item" href="/item/bottom">Bottom</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                                <li><a class="dropdown-item" href="/popular">Popular Items</a></li>
                             </ul>
                         </li>
+                        <!—      고객센터 메뉴추가        —>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">고객센터</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/custcen/notice">공 지 사 항</a></li>
+                                <li><a class="dropdown-item" href="/bottom">자주 하는 질문</a></li>
+                                <li><a class="dropdown-item" href="/custcen/1by1">1:1 문의 사항</a></li>
+                                <li><a class="dropdown-item" href="/custcen/undifi">미확인 입금자</a></li>
+                            </ul>
+                        </li>
+                        <!—      고객센터 메뉴추가        —>
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse">
                     {% if request.session.sessionid == None %}
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li><a class="nav-link active" href="/user/login" style="text-decoration:none; color:black">Login</a></li>
-                        <li><a class="nav-link active" href="/user/register" style="text-decoration:none; color:black">Sing up</a></li>
+                        <li><a class="nav-link active" href="/user/register" style="text-decoration:none; color:black">Join</a></li>
                     </ul>
                     {% else %}
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -50,7 +67,7 @@
                         <li><a class="nav-link active" href="/user/logout" style="text-decoration:none; color:black">Logout</a></li>
                     </ul>
                     <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
+                        <button class="btn btn-outline-dark" type="button" onclick="location.href='/cart'">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
@@ -62,218 +79,78 @@
         </nav>
         <!-- Header-->
         <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">머찐옷 이쁜옷</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">조원: 강주훈 이채환 석진영 박정민</p>
+              <center>
+                <!-- carousel를 구성할 영역 설정 -->
+                <div style="width: 300px;margin: 1px;">
+                    <div id="carousel-example-generic" class="carousel slide" >
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <!-- 이미지의 개수만큼 item을 만든다. 중요한 포인트는 carousel-indicators의 li 태그 개수와 item의 개수는 일치해야 한다. -->
+                            <div class="item active">
+                                <!-- 아미지 설정- -->
+                                <img class="card-img-top" src="{% static 'img/01.jpg' %}" alt="..." />
+                                신상품1
+                                <div class="carousel-caption" style="color:blue;">
+                                </div>
+                            </div>
+                            <div class="item">
+                               <img class="card-img-top" src="{% static 'img/02.jpg' %}" alt="..." />
+                                신상품2
+                                <div class="carousel-caption" style="color:white;">
+                                </div>
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            </center>
         </header>
         <!-- Section-->
         {% if center != None %}
-            {% include center %}
+        {% include center %}
         {% else %}
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+<!--                    db에서 아이템 가져오기 시작-->
+                    {% for o in objs %}
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <a href="/top/1"><img class="card-img-top" src="{% static 'img/01.jpg' %}" alt="..." /></a>
+                            <a href="/item/g/{{o.product_number}}"><img class="card-img-top" src="/static/img/{{o.product_img}}" alt="..." /></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">남성옷 01</h5>
+                                    <h5 class="fw-bolder">{{o.product_name}}</h5>
                                     <!-- Product price-->
-                                    $40.00
+                                    {{o.product_price}}
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/top/1">View Details</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/item/g/{{o.product_number}}">View Details</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <a href="/top/2"><img class="card-img-top" src="{% static 'img/02.jpg' %}" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">남성옷 02</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/top/2">View Details</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <a href="/top/3"><img class="card-img-top" src="{% static 'img/03.jpg' %}" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">남성옷 03</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/top/3">View Details</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <a href="/top/4"><img class="card-img-top" src="{% static 'img/04.jpg' %}" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">남성옷 04</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/top/4">View Details</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <a href="/bottom/5"><img class="card-img-top" src="{% static 'img/05.jpg' %}" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">남성옷 05</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/bottom/5">View Details</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <a href="/bottom/6"><img class="card-img-top" src="{% static 'img/06.jpg' %}" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">남성옷 06</h5>
-                                    <!-- Product price-->
-                                    $30.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/bottom/6">View Details</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <a href="/bottom/7"><img class="card-img-top" src="{% static 'img/07.jpg' %}" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">남성옷 07</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/bottom/7">View Details</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <a href="/bottom/8"><img class="card-img-top" src="{% static 'img/08.jpg' %}" alt="..." /></a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">남성옷 08</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    $40.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/bottom/8">View Details</a></div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
+            <script>
+            $(function(){
+                $('#carousel-example-generic').carousel({
+                    interval: 3000,
+                    pause: "hover",
+                    wrap: true,
+            </script>
         </section>
         {% endif %}
         <!-- Footer-->

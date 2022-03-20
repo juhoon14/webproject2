@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+<style>
+    #cart{
+        text-decoration:none;
+    }
+
+</style>
+
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -18,7 +25,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="head">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/">1st group</a>
+                <a class="navbar-brand" href="/">머&이</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -27,22 +34,51 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/all">All Products</a></li>
-                                <li><a class="dropdown-item" href="/top">Top</a></li>
-                                <li><a class="dropdown-item" href="/bottom">Bottom</a></li>
+                                <li><a class="dropdown-item" href="/item/a">All Products</a></li>
+                                <li><a class="dropdown-item" href="/item/top">Top</a></li>
+                                <li><a class="dropdown-item" href="/item/bottom">Bottom</a></li>
+<!--                                <li><a class="dropdown-item" href="/item/iv">insert</a></li>-->
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                                <li><a class="dropdown-item" href="/popular">Popular Items</a></li>
+<!--                                <li><a class="dropdown-item" href="/new">New Arrivals</a></li>-->
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
+<!--                    <form class="d-flex">-->
+
+<!--                    </form>-->
+                    {% if request.session.sessionid == None %}
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li><a class="nav-link active" href="/user/login" style="text-decoration:none; color:black">Login</a></li>
+                        <li><a class="nav-link active" href="/user/register" style="text-decoration:none; color:black">Join</a></li>
+                    </ul>
+
+                    {% else %}
+                        {% if request.session.sessionid != "admin" %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-link active"><span>{{request.session.sessionname}}</span> 님 환영합니다</li>
+                            <li><a class="nav-link active" href="/user/logout" style="text-decoration:none; color:black">Logout</a></li>
+                            <li><a class="nav-link active" href="/user/mypage" style="text-decoration:none; color:black">MyPage</a></li>
+                        </ul>
+                        <form class="d-flex">
+                            <button class="btn btn-outline-dark" type="button" onclick="location.href='/cart'">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </form>
+                        {% else %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                            <li class="nav-link active"><span>{{request.session.sessionname}}</span> 님 환영합니다</li>
+                            <li><a class="nav-link active" href="/user/logout" style="text-decoration:none; color:black">Logout</a></li>
+                        <form class="itemadd">
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                <a href="/item/iv" id="itemadd1">상품등록</a>
+                            </button>
+                        </form>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </nav>
